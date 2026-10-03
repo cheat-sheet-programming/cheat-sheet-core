@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getApiStatus, getHealthStatus } from "../controllers/health.controller.js";
+import { getApiStatus, getDatabaseHealth, getHealthStatus } from "../controllers/health.controller.js";
 
 const router = Router();
 
@@ -45,5 +45,19 @@ router.get("/", getApiStatus);
  *                   format: date-time
  */
 router.get("/api/health", getHealthStatus);
+
+/**
+ * @swagger
+ * /api/health/db:
+ *   get:
+ *     summary: Check PostgreSQL connectivity
+ *     tags: [Health]
+ *     responses:
+ *       200:
+ *         description: PostgreSQL is connected
+ *       503:
+ *         description: PostgreSQL is unavailable
+ */
+router.get("/api/health/db", getDatabaseHealth);
 
 export default router;
